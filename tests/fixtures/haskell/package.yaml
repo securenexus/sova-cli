@@ -1,0 +1,21 @@
+name:    myproject
+version: "1.0.0"
+license: MIT
+
+dependencies:
+- base >=4.7 && <5
+- aeson >=2.1
+- text
+
+library:
+  source-dirs: src
+  dependencies:
+  - bytestring
+
+executables:
+  myproject:
+    main: Main.hs
+    source-dirs: app
+    dependencies:
+    - myproject
+    - optparse-applicative

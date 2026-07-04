@@ -1,0 +1,9 @@
+requires 'Moose', '2.2207';
+requires 'DBI', '>= 1.643, < 2.00';
+requires 'Plack', '1.0050';
+requires 'JSON::XS';
+
+recommends 'Try::Tiny', '0.31';
+
+test_requires 'Test::More', '1.302195';
+test_requires 'Test::Exception', '0.43';

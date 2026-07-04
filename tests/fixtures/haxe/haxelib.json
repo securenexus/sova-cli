@@ -1,0 +1,15 @@
+{
+  "name": "myHaxeProject",
+  "url": "https://github.com/example/myhaxeproject",
+  "license": "MIT",
+  "tags": ["cross", "utility"],
+  "description": "A test Haxe project",
+  "version": "1.0.0",
+  "releasenote": "Initial release",
+  "contributors": ["TestAuthor"],
+  "dependencies": {
+    "hxnodejs": "12.1.0",
+    "tink_core": "2.0.1",
+    "format": ""
+  }
+}

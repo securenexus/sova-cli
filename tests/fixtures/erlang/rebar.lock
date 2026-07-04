@@ -1,0 +1,17 @@
+{"1.2.0",
+[{<<"cowboy">>,
+  {pkg,<<"cowboy">>,<<"2.10.0">>,
+   <<"bf679fd2b852538f4e8f8a293ea0b4d11e0d95c01dbaaf","d72fdb3a">>,
+   <<"hexpm">>,<<"abc123">>},
+  0},
+ {<<"cowlib">>,
+  {pkg,<<"cowlib">>,<<"2.12.1">>,
+   <<"a7a9ff03b5b836553dbef1a9ddaee2fa30b4f0fd","e9bfca3a">>,
+   <<"hexpm">>,<<"def456">>},
+  1},
+ {<<"jsx">>,
+  {pkg,<<"jsx">>,<<"3.1.0">>,
+   <<"fcd78fd71b16f6b0f81a82e5dfd48a0a56553a2a3","cbc6a64f">>,
+   <<"hexpm">>,<<"ghi789">>},
+  0}
+]}.

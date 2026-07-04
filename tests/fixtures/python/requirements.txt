@@ -1,0 +1,8 @@
+# Python requirements
+flask==2.3.0
+requests>=2.28.0
+numpy
+pandas==1.5.3
+# this is a comment
+-r other-requirements.txt
+gunicorn~=20.1.0

@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (5.8.1)
+  - Firebase (10.18.0):
+    - Firebase/Core (= 10.18.0)
+  - Firebase/Core (10.18.0):
+    - FirebaseAnalytics (= 10.18.0)
+    - FirebaseCore (= 10.18.0)
+  - FirebaseCore (10.18.0):
+    - FirebaseCoreInternal (~> 10.18)
+    - GoogleUtilities/Environment (~> 7.12)
+  - FirebaseCoreInternal (10.18.0)
+  - SDWebImage (5.18.3):
+    - SDWebImage/Core (= 5.18.3)
+  - SDWebImage/Core (5.18.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.8)
+  - Firebase
+  - SDWebImage (~> 5.18)
+
+SPEC CHECKSUMS:
+  Alamofire: abc123
+  Firebase: def456
+  SDWebImage: ghi789
+
+PODFILE CHECKSUM: xyz000
+
+COCOAPODS: 1.14.2

@@ -1,0 +1,29 @@
+name: Language Support Request
+description: Request support for a new programming language
+title: "[Parser]: "
+labels: ["new-language"]
+body:
+  - type: input
+    id: language
+    attributes:
+      label: Language / Ecosystem
+      description: "e.g., Zig, Nim, Crystal"
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Dependency Files
+      description: "What files define dependencies in this ecosystem? (e.g., build.zig, shard.yml)"
+    validations:
+      required: true
+  - type: textarea
+    id: package-managers
+    attributes:
+      label: Package Managers
+      description: "Which package managers are used? (e.g., zigmod, shards)"
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example Dependency Files
+      description: "Paste a small example dependency file if possible"

@@ -1,0 +1,17 @@
+{
+  "name": "my-cpp-project",
+  "version-string": "1.0.0",
+  "license": "MIT",
+  "dependencies": [
+    "boost",
+    "zlib",
+    {
+      "name": "curl",
+      "version>=": "7.80.0"
+    },
+    {
+      "name": "openssl",
+      "version-string": "3.0.0"
+    }
+  ]
+}

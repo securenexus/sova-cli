@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
+  app:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: node server.js
+
+  db:
+    image: postgres:15.4
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+
+  cache:
+    image: redis:7.2-alpine

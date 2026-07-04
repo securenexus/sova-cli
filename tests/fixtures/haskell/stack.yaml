@@ -1,0 +1,9 @@
+resolver: lts-21.25
+
+packages:
+- .
+
+extra-deps:
+- aeson-2.1.2.1
+- text-2.0.2
+- optparse-applicative-0.17.0.0@sha256:abc123def456,1234

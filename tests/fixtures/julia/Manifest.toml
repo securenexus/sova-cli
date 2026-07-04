@@ -1,0 +1,21 @@
+julia_version = "1.9.4"
+manifest_format = "2.0"
+project_hash = "abc123"
+
+[[deps.DataFrames]]
+deps = ["Compat", "DataAPI", "DataStructures"]
+git-tree-sha1 = "abc123"
+uuid = "a93c6f00-e57d-5684-b466-afe8fa294f15"
+version = "1.6.1"
+
+[[deps.HTTP]]
+deps = ["Base64", "URIs"]
+git-tree-sha1 = "def456"
+uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+version = "1.9.14"
+
+[[deps.Plots]]
+deps = ["Base64", "Contour"]
+git-tree-sha1 = "ghi789"
+uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+version = "1.39.0"

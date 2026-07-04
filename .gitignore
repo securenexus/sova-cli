@@ -1,0 +1,38 @@
+# Build output
+dist/
+dist-obf/
+dist-original/
+
+# Dependencies
+node_modules/
+
+# Next.js (stray artifact)
+.next/
+
+# npm pack output
+*.tgz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test coverage
+coverage/
+
+# Environment
+.env
+.env.local
+
+# Scan output (don't commit generated manifests)
+sova-manifest.json
+
+# .NET / IDE build artifacts (never commit into test fixtures)
+tests/fixtures/**/obj/
+tests/fixtures/**/bin/
+*.lscache

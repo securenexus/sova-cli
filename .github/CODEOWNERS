@@ -1,0 +1,8 @@
+# Default owners for everything
+* @mohitkumar
+
+# Parsers
+src/parsers/ @mohitkumar
+
+# Security signals
+src/security/ @mohitkumar
