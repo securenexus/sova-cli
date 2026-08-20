@@ -1,0 +1,59 @@
+name: DCO
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: dco
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Verify Signed-off-by on every commit
+        shell: bash
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -uo pipefail
+          failed=0
+          checked=0
+          # Merge commits carry no authorship of their own, so they are exempt.
+          while IFS= read -r sha; do
+            [ -n "$sha" ] || continue
+            checked=$((checked + 1))
+            author="$(git show -s --format='%an <%ae>' "$sha")"
+            subject="$(git show -s --format='%h %s' "$sha")"
+            body="$(git show -s --format='%B' "$sha")"
+            if ! printf '%s\n' "$body" | grep -qiE '^Signed-off-by: .+ <[^>]+@[^>]+>[[:space:]]*$'; then
+              echo "FAIL  $subject"
+              echo "      missing Signed-off-by trailer"
+              failed=1
+            elif ! printf '%s\n' "$body" | grep -qiF "Signed-off-by: $author"; then
+              echo "FAIL  $subject"
+              echo "      sign-off does not match commit author: $author"
+              failed=1
+            else
+              echo "ok    $subject"
+            fi
+          done < <(git rev-list --no-merges "$BASE..$HEAD_SHA")
+
+          echo ""
+          echo "Checked $checked non-merge commit(s)."
+          if [ "$failed" -ne 0 ]; then
+            echo ""
+            echo "DCO check failed. Every commit needs a Signed-off-by line matching its author."
+            echo "Fix with:  git commit --amend -s          (single commit)"
+            echo "       or:  git rebase --signoff $BASE     (multiple commits)"
+            echo "then:      git push --force-with-lease"
+            echo "See CONTRIBUTING.md and https://developercertificate.org/"
+            exit 1
+          fi

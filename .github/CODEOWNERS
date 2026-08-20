@@ -1,8 +1,14 @@
 # Default owners for everything
-* @mohitkumar
+* @mohityadav94161
 
 # Parsers
-src/parsers/ @mohitkumar
+src/parsers/ @mohityadav94161
 
 # Security signals
-src/security/ @mohitkumar
+src/security/ @mohityadav94161
+
+# Crypto (signing / verification) — extra scrutiny
+src/crypto/ @mohityadav94161
+
+# CI, release pipeline, and repo policy
+.github/ @mohityadav94161
