@@ -2,4 +2,4 @@
 
 | Name | GitHub | Role |
 |------|--------|------|
-| Mohit Kumar | @mohitkumar | Lead maintainer |
+| Mohit Kumar | @mohityadav94161 | Lead maintainer |
