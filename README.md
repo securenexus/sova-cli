@@ -4,7 +4,7 @@
 by [SecureNexus](https://www.securenexus.ai/)
 
 > Extract dependency information from any project for SBOM generation.
-> Supports 27 languages. Detects supply chain security signals. Zero source-code access needed.
+> Supports 27 languages. Detects supply chain security signals.
 
 ## Quick Start
 
