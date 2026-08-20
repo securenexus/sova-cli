@@ -130,6 +130,11 @@ export async function getParser(language: string): Promise<IParser | null> {
     return parserCache.get(language)!;
   }
 
+  // Own-property check: a bare `registry[language]` lookup would resolve
+  // inherited Object.prototype members such as "constructor" or "toString"
+  // to truthy values and hand back a bogus parser.
+  if (!Object.hasOwn(registry, language)) return null;
+
   const factory = registry[language];
   if (!factory) return null;
 
