@@ -26,12 +26,34 @@ jobs:
       - run: npm run test
       - run: npm run build
 
+      - name: Check whether this version is already on npm
+        id: published
+        run: |
+          set -uo pipefail
+          version="$(node -p "require('./package.json').version")"
+          name="$(node -p "require('./package.json').name")"
+          if npm view "$name@$version" version >/dev/null 2>&1; then
+            echo "$name@$version is already on the registry; skipping publish."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "$name@$version is not published yet."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish to npm with provenance
+        if: steps.published.outputs.skip == 'false'
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
-        run: gh release create ${{ github.ref_name }} --generate-notes
+        run: |
+          set -uo pipefail
+          tag="${{ github.ref_name }}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists; leaving it untouched."
+          else
+            gh release create "$tag" --generate-notes
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
